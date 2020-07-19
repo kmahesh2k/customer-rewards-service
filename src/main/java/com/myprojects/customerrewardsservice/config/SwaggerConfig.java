@@ -3,6 +3,7 @@ package com.myprojects.customerrewardsservice.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -16,7 +17,10 @@ public class SwaggerConfig {
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.myprojects.customerrewardsservice"))
-				.paths(PathSelectors.any()).build();
+				.apis(RequestHandlerSelectors.basePackage("com.myprojects"))
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(new ApiInfoBuilder().title("Customer Rewards Service")
+				.version("0.1").description("Customer Rewards Service").build());
 	}
 }
