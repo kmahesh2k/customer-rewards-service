@@ -57,6 +57,18 @@ public class CustomerRewardsSvc {
 
 	private int calculateTotalPts(int amt) {
 
+		/*
+		 * Problem statement - A customer receives 2 points for every dollar spent over
+		 * $100 in each transaction, plus 1 point for every dollar spent over $50 in
+		 * each transaction
+		 * 
+		 * (e.g. a $120 purchase = 2x$20 + 1x$50 = 90 points).
+		 * 
+		 * Need to discuss more with the concerned person about the correct meaning of
+		 * the above problem statement because the solution (90 points) for the example
+		 * of $120 given above is not exactly matching with the problem statement
+		 */
+
 		int sum = 0;
 		if (amt > 100) {
 			sum = (amt - 100) * 2 + 50;
