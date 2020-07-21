@@ -2,7 +2,6 @@ package com.myprojects.customerrewardsservice.svc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -15,13 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.myprojects.customerrewardsservice.model.Customer;
-import com.myprojects.customerrewardsservice.model.CustomerRequest;
 import com.myprojects.customerrewardsservice.model.Transaction;
 import com.myprojects.customerrewardsservice.repo.CustomerRepo;
 
@@ -51,11 +47,6 @@ public class CustomerRewardsSvcTest {
 		Optional<Customer> opt = Optional.of(customer);
 		when(customerRepo.findById(Mockito.any(Integer.class))).thenReturn(opt);
 
-//		CustomerRequest customerRequest = new CustomerRequest();
-//		Customer customer2 = new Customer();
-//		customer2.setCustName("test");
-//		customerRequest.setCustomer(customer2);
-
 		when(customerRepo.save(Mockito.any(Customer.class))).thenReturn(customer);
 
 		Customer cust2 = new Customer();
@@ -68,10 +59,10 @@ public class CustomerRewardsSvcTest {
 		List<Transaction> list2 = new ArrayList<>();
 		list2.add(transaction2);
 		cust2.setTransactions(list2);
-		
+
 		// Under Test
 		Customer res = service.addCustTransactions(cust2);
-		
+
 		assertNotNull(res);
 		assertEquals("CustName", res.getCustName());
 		assertEquals(2, res.getTransactions().size());

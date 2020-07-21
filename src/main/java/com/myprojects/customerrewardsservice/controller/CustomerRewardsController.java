@@ -3,7 +3,9 @@ package com.myprojects.customerrewardsservice.controller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,14 +28,14 @@ public class CustomerRewardsController {
 
 	@PostMapping(value = "/addTransactions", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation("Add Customer with Transactions")
-	public Customer addTransactions(@RequestBody CustomerRequest customer) {
-		return customerSvc.addCustTransactions(customer.getCustomer());
+	public ResponseEntity<Customer> addTransactions(@RequestBody CustomerRequest customer) {
+		return ResponseEntity.status(HttpStatus.OK).body(customerSvc.addCustTransactions(customer.getCustomer()));
 	}
 
 	@GetMapping(value = "/getTotalByCustomer/{custId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation("Get the total rewards points earned each month by Customer ID")
-	public Map<String, Integer> getTotalByCust(@PathVariable(value = "custId") String custId) {
-		return customerSvc.getTotalPoints(custId);
+	public ResponseEntity<Map<String, Integer>> getTotalByCust(@PathVariable(value = "custId") String custId) {
+		return ResponseEntity.status(HttpStatus.OK).body(customerSvc.getTotalPoints(custId));
 	}
 
 }
